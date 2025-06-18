@@ -7,8 +7,6 @@
 
 class	Dog: public Animal
 {
-	protected:
-		std::string	type;
 	public:
 		// Constructors
 		Dog(); //default
