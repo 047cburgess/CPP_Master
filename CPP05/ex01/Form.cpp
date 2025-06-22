@@ -2,7 +2,7 @@
 
 Form::Form(void): _name("default"), _isSigned(false), _signGrade(1), _executeGrade(1)
 {
-	std::cout << "Default Form constructor called" << std::endl;
+	std::cout << "Default Form constructor called: " << *this << std::endl;
 }
 
 Form::Form(std::string name, int signGrade, int executeGrade): _name(name), _isSigned(false), _signGrade(signGrade), _executeGrade(executeGrade)
@@ -16,6 +16,7 @@ Form::Form(std::string name, int signGrade, int executeGrade): _name(name), _isS
 
 Form::Form(const Form& other): _name(other.getName()), _isSigned(other.getIsSigned()), _signGrade(other.getSignGrade()), _executeGrade(other.getExecuteGrade())
 {
+	std::cout << "Successfully constructed: " << *this << std::endl;
 	return ;
 }
 
@@ -64,17 +65,24 @@ const int&	Form::getExecuteGrade(void) const
 
 const char*	Form::GradeTooHighException::what() const throw()
 {
-	return ("A GradeTooHighException was thrown");
+	return ("A GradeTooHighException was thrown.");
 }
 
 const char*	Form::GradeTooLowException::what() const throw()
 {
-	return ("A GradeTooLowException was thrown");
+	return ("A GradeTooLowException was thrown.");
+}
+
+const char*	Form::AlreadySignedException::what() const throw()
+{
+	return ("Form is already signed.");
 }
 
 void	Form::beSigned(Bureaucrat& bureaucrat)
 {
-	if (bureaucrat.getGrade() > this->_executeGrade)
-		throw	Form::GradeTooLowException();
-	this->isSigned = true;
+	if (this->_isSigned)
+		throw	AlreadySignedException();
+	if (bureaucrat.getGrade() > this->_signGrade)
+		throw	GradeTooLowException();
+	this->_isSigned = true;
 }

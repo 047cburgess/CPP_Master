@@ -1,4 +1,5 @@
 #include "Bureaucrat.hpp"
+#include "Form.hpp"
 
 
 void	printHeader(void)
@@ -41,124 +42,101 @@ void	printDivider(void)
 int	main(void)
 {
 	printHeader();
-	std::cout << "TESTING SUCCESSFUL CREATION OF BUREAUCRAT" << std::endl;
+	std::cout << "TESTING SUCCESSFUL CREATION OF FORM" << std::endl;
 	try
 	{
-		std::cout << "Attempting to Create Bureaucrat: Alice, Grade: 1" << std::endl;
-		Bureaucrat alice("Alice", 1);
-		std::cout << "Success" << std::endl;
+		std::cout << "Attempting to Create Form: MyForm, notSigned, gradeToSign(20), gradeToExecute(1)" << std::endl;
+		Form	form("MyForm", 20, 1);
 	}
 	catch (std::exception & e)
 	{
 		std::cout << e.what() << std::endl;
-		std::cout << "Failed to create Bureaucrat Alice";
+	}
+	printDivider();
+
+	std::cout << "TESTING FAILED CREATION OF FORM: GRADE OUT OF BOUNDS" << std::endl;
+	try
+	{
+		std::cout << "Attempting to Create Form: MyForm, notSigned, gradeToSign(0), gradeToExecute(151)" << std::endl;
+		Form	form("MyForm", 0, 151);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	printDivider();
+
+	std::cout << "TESTING FAILED CREATION OF FORM: GRADE OUT OF BOUNDS & trycatch demo" << std::endl;
+	try
+	{
+		std::cout << "Attempting to Create Form: MyForm, notSigned, gradeToSign(20), gradeToExecute(151)" << std::endl;
+		Form	form("MyForm", 20, 151);
+		std::cout << "Attempting to Create Form: NOTCREATED, notSigned, gradeToSign(1), gradeToExecute(1)" << std::endl;
+		Form	notcreated("NOTCREATED", 1, 1);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
 	}
 	
 	printDivider();
-	std::cout << "TESTING CREATION WITH GRADE TOO LOW" << std::endl;
+
+	std::cout << "TESTING SUCCESSFULLY SIGNED FORM" << std::endl;
 	try
 	{
-		std::cout << "Attempting to Create Bureaucrat: Alice, Grade: 151" << std::endl;
-		Bureaucrat alice("Alice", 151);
-		std::cout << "Success" << std::endl;
+		Bureaucrat alice("Alice", 19);
+		std::cout << "Attempting to Create Form: MyForm, notSigned, gradeToSign(20), gradeToExecute(1)" << std::endl;
+		Form	form("MyForm", 20, 1);
+		std::cout << "Alice attempting to sign form" << std::endl;
+		alice.signForm(form);
 	}
 	catch (std::exception & e)
 	{
 		std::cout << e.what() << std::endl;
-		std::cout << "Failed to create Bureaucrat Alice" << std::endl;
 	}
-
 	printDivider();
-	std::cout << "TESTING CREATION WITH GRADE TOO HIGH" << std::endl;
-	try
-	{
-		std::cout << "Attempting to Create Bureaucrat: Alice, Grade: 0" << std::endl;
-		Bureaucrat alice("Alice", 0);
-		std::cout << "Success" << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-		std::cout << "Failed to create Bureaucrat Alice" << std::endl;
-	}
 
-	printDivider();
-	std::cout << "TESTING SUCCESSFUL INCREMENT OF GRADE" << std::endl;
-	try
 	{
+		std::cout << "TESTING FAILED SIGNED FORM: GRADE TOO LOW" << std::endl;
+		Bureaucrat alice("Alice", 25);
+		Form	form("MyForm", 20, 1);
+		std::cout << "Alice attempting to sign form" << std::endl;
+		alice.signForm(form);
+
+	}
+	printDivider();
+	{
+		std::cout << "TESTING FAILED SIGNED FORM: ALREADY SIGNED" << std::endl;
+		Bureaucrat alice("Alice", 25);
+		Bureaucrat bob("Bob", 1);
+		Form	form("MyForm", 20, 1);
+		bob.signForm(form);
+		std::cout << "Alice attempting to sign form" << std::endl;
+		alice.signForm(form);
+	}
+	printDivider();
+	
+	{
+		std::cout << "TESTING FAILED SIGNED FORM THEN SUCCESSFUL" << std::endl;
 		Bureaucrat alice("Alice", 2);
-
-		std::cout << "Attempting to Increase Alice grade from 2 to 1" << std::endl;
+		Form	form("MyForm", 1, 1);
+		std::cout << alice << "attemping to sign form but her grade is too low" << std::endl;
+		alice.signForm(form);
 		alice.incrementGrade();
-		std::cout << "Success: Alice grade is now " << alice.getGrade() << std::endl;
+		std::cout << alice << "attemping to resign form, will try both times as is not in a try catch statement" << std::endl;
+		alice.signForm(form);
+		std::cout << alice << "attemping to resign form, will try both times as is not in a try catch statement" << std::endl;
+		alice.signForm(form);
 	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-		std::cout << "Failed to increment Alice grade" << std::endl;
-	}
-
 	printDivider();
-	std::cout << "TESTING SUCCESSFUL DECREMENT OF GRADE" << std::endl;
-	try
-	{
-		Bureaucrat alice("Alice", 2);
 
-		std::cout << "Attempting to decrease Alice grade from 2 to 3" << std::endl;
-		alice.decrementGrade();
-		std::cout << "Success: Alice grade is now " << alice.getGrade() << std::endl;
-	}
-	catch (std::exception & e)
 	{
-		std::cout << e.what() << std::endl;
-		std::cout << "Failed to decrement Alice grade" << std::endl;
+		std::cout << "TESTING FORM OUTPUT OVERLOAD <<" << std::endl;
+		Form	form("MyForm", 20, 1);
+		std::cout << "std::cout << form << std::endl" << std::endl;
+		std::cout << form << std::endl;
 	}
-
+	
 	printDivider();
-	std::cout << "TESTING FAILED INCREMENT OF GRADE" << std::endl;
-	try
-	{
-		Bureaucrat alice("Alice", 1);
-
-		std::cout << "Attempting to increment Alice grade from 1 to 0" << std::endl;
-		alice.incrementGrade();
-		std::cout << "Success: Alice grade is now " << alice.getGrade() << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-		std::cout << "Failed to increment Alice grade" << std::endl;
-	}
-
-	printDivider();
-	std::cout << "TESTING FAILED DECREMENT OF GRADE" << std::endl;
-	try
-	{
-		Bureaucrat alice("Alice", 150);
-
-		std::cout << "Attempting to decrease Alice grade from 150 to 151" << std::endl;
-		alice.decrementGrade();
-		std::cout << "Success: Alice grade is now " << alice.getGrade() << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-		std::cout << "Failed to decrement Alice grade" << std::endl;
-	}
-
-	printDivider();
-	std::cout << "TESTING BUREAUCRAT OVERLOAD OPERATOR" << std::endl;
-	try
-	{
-		Bureaucrat alice("Alice", 1);
-		std::cout << "Attempting to execute code: 'std::cout << alice << std::endl'" << std::endl;
-		std::cout << alice << std::endl;
-		std::cout << "Success" << std::endl;
-	}
-	catch (std::exception & e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-
 	printFooter();
 }

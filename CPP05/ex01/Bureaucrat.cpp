@@ -1,7 +1,9 @@
 # include "Bureaucrat.hpp"
+# include "Form.hpp"
 
-Bureaucrat::Bureaucrat(void): _name("default"), _grade(150)
+Bureaucrat::Bureaucrat(void): _name("default"), _grade(_gradeMin)
 {
+	std::cout << "Successfully constructed " << *this << std::endl;
 	return ;
 }
 
@@ -52,6 +54,7 @@ void	Bureaucrat::incrementGrade(void)
 	if (this->_grade == _gradeMax)
 		throw	GradeTooHighException();
 	this->_grade -= 1;
+	std::cout << *this << "(Grade was increased by 1)" << std::endl;
 }
 
 void	Bureaucrat::decrementGrade(void)
@@ -59,6 +62,7 @@ void	Bureaucrat::decrementGrade(void)
 	if (this->_grade == _gradeMin)
 		throw	GradeTooLowException();
 	this->_grade += 1;
+	std::cout << *this << "(Grade was decreased by 1)" << std::endl;
 }
 
 const char*	Bureaucrat::GradeTooHighException::what() const throw()
@@ -73,7 +77,13 @@ const char*	Bureaucrat::GradeTooLowException::what() const throw()
 
 void	Bureaucrat::signForm(Form& form)
 {
-
-	form.beSigned(*this);
-
+	try
+	{
+		form.beSigned(*this);
+		std::cout << "Bureaucrat " << _name << " signed " << form << std::endl;
+	}
+	catch( std::exception &e)
+	{
+		std::cout << "Bureaucrat " << _name << " couldn't sign " << form << " because " << e.what() << std::endl;
+	}
 }
