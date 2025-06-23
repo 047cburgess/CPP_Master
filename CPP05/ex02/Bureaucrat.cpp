@@ -62,7 +62,7 @@ void	Bureaucrat::decrementGrade(void)
 	if (this->_grade == _gradeMin)
 		throw	GradeTooLowException();
 	this->_grade += 1;
-	std::cout << *this << "(Grade was decreased by 1)" << std::endl;
+	std::cout << *this << " (Grade was decreased by 1)" << std::endl;
 }
 
 const char*	Bureaucrat::GradeTooHighException::what() const throw()
@@ -93,7 +93,7 @@ void	Bureaucrat::executeForm(AForm const & form) const
 	try
 	{
 		form.execute(*this);
-		std::cout << *this << "executed" << form << std::endl;
+		std::cout << *this << " executed " << form << std::endl;
 	}
 	catch (std::exception &e)
 	{

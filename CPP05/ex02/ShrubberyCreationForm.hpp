@@ -11,6 +11,7 @@ class	ShrubberyCreationForm: public AForm
 	private:
 		static const int	_signGrade = 145;
 		static const int	_executeGrade = 137;
+		std::string	_target;
 		ShrubberyCreationForm();
 		ShrubberyCreationForm&	operator=(const ShrubberyCreationForm& other);
 	public:
@@ -19,6 +20,7 @@ class	ShrubberyCreationForm: public AForm
 		virtual ~ShrubberyCreationForm();
 
 		void	beExecuted(void) const;
+		const std::string&	getTarget() const;
 
 };	
 # endif

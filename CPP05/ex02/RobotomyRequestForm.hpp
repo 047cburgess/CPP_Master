@@ -11,6 +11,7 @@ class	RobotomyRequestForm: public AForm
 	private:
 		static const int	_signGrade = 72;
 		static const int	_executeGrade = 45;
+		std::string	_target;
 		RobotomyRequestForm();
 		RobotomyRequestForm&	operator=(const RobotomyRequestForm& other);
 	public:
@@ -19,6 +20,7 @@ class	RobotomyRequestForm: public AForm
 		virtual ~RobotomyRequestForm();
 
 		void	beExecuted(void) const;
+		const std::string&	getTarget() const;
 
 };	
 # endif

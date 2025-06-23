@@ -35,7 +35,7 @@ AForm::~AForm(void)
 
 std::ostream&	operator<<(std::ostream& os, const AForm& form)
 {
-	os << "[AForm] | name = " << form.getName();
+	os << "[ form name = " << form.getName();
 	os << " | isSigned = " << (form.getIsSigned() ? "yes" : "no");
 	os << " | signGrade = " << form.getSignGrade();
 	os << " | executeGrade = " << form.getExecuteGrade();
@@ -80,6 +80,11 @@ const char*	AForm::AlreadySignedException::what() const throw()
 const char*	AForm::NotSignedException::what() const throw()
 {
 	return ("AForm is not signed.");
+}
+
+const char*	AForm::FailedFileStreamException::what() const throw()
+{
+	return ("Error with filestream....");
 }
 
 void	AForm::beSigned(Bureaucrat& bureaucrat)

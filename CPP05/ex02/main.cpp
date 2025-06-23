@@ -1,6 +1,8 @@
 #include "Bureaucrat.hpp"
 #include "AForm.hpp"
+#include "PresidentialPardonForm.hpp"
 #include "ShrubberyCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
 
 
 void	printHeader(void)
@@ -46,8 +48,8 @@ int	main(void)
 	std::cout << "TESTING SUCCESSFUL SHRUBBERY FORM EXECUTION" << std::endl;
 	try
 	{
-		std::cout << "Attempting to Create ShrubberyCreationForm: MyShrubForm, notSigned, gradeToSign(145), gradeToExecute(137)" << std::endl;
-		ShrubberyCreationForm	form("MyShrubForm");
+		std::cout << "Attempting to Create ShrubberyCreationForm: home, notSigned, gradeToSign(145), gradeToExecute(137)" << std::endl;
+		ShrubberyCreationForm	form("home");
 		Bureaucrat	alice("Alice", 145);
 		alice.signForm(form);
 		Bureaucrat	bob("Bob", 137);
@@ -61,11 +63,47 @@ int	main(void)
 	}
 	printDivider();
 
+	std::cout << "TESTING SUCCESSFUL ROBOTOMY FORM EXECUTION" << std::endl;
+	try
+	{
+		std::cout << "Attempting to Create RobotomyRequestForm: home, notSigned, gradeToSign(72), gradeToExecute(45)" << std::endl;
+		RobotomyRequestForm	form("Casey");
+		Bureaucrat	alice("Alice", 72);
+		alice.signForm(form);
+		Bureaucrat	bob("Bob", 5);
+		
+		std::cout << "bob.executeForm(form)" << std::endl;
+		bob.executeForm(form);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	printDivider();
+
+	std::cout << "TESTING SUCCESSFUL PRESIDENTIAL FORM EXECUTION" << std::endl;
+	try
+	{
+		std::cout << "Attempting to Create PresidentialPardonForm: casey, notSigned, gradeToSign(25), gradeToExecute(5)" << std::endl;
+		PresidentialPardonForm	form("Casey");
+		Bureaucrat	alice("Alice", 24);
+		alice.signForm(form);
+		Bureaucrat	bob("Bob", 5);
+		
+		std::cout << "bob.executeForm(form)" << std::endl;
+		bob.executeForm(form);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	printDivider();
+
 	std::cout << "TESTING FAILED SHRUBBERY FORM EXECUTION: executor bob grade is too low" << std::endl;
 	try
 	{
-		std::cout << "Attempting to Create ShrubberyCreationForm: MyShrubForm, notSigned, gradeToSign(145), gradeToExecute(137)" << std::endl;
-		ShrubberyCreationForm	form("MyShrubForm");
+		std::cout << "Attempting to Create ShrubberyCreationForm: failedwork, notSigned, gradeToSign(145), gradeToExecute(137)" << std::endl;
+		ShrubberyCreationForm	form("failedwork");
 		Bureaucrat	alice("Alice", 145);
 		alice.signForm(form);
 		Bureaucrat	bob("Bob", 150);
@@ -78,11 +116,46 @@ int	main(void)
 	}
 	printDivider();
 
+	std::cout << "TESTING FAILED ROBOTOMY FORM EXECUTION: executor bob grade is too low" << std::endl;
+	try
+	{
+		std::cout << "Attempting to Create RobotomyRequestForm: casey, notSigned, gradeToSign(72), gradeToExecute(45)" << std::endl;
+		RobotomyRequestForm	form("casey");
+		Bureaucrat	alice("Alice", 72);
+		alice.signForm(form);
+		Bureaucrat	bob("Bob", 46);
+
+		bob.executeForm(form);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	printDivider();
+
+	std::cout << "TESTING FAILED PRESIDENTIAL FORM EXECUTION: executor bob grade is too low" << std::endl;
+	try
+	{
+		std::cout << "Attempting to Create PresidentialPardonForm: casey, notSigned, gradeToSign(25), gradeToExecute(5)" << std::endl;
+		PresidentialPardonForm	form("Casey");
+		Bureaucrat	alice("Alice", 24);
+		alice.signForm(form);
+		Bureaucrat	bob("Bob", 6);
+		
+		std::cout << "bob.executeForm(form)" << std::endl;
+		bob.executeForm(form);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
+	}
+	printDivider();
+
 	std::cout << "TESTING FAILED SHRUBBERY FORM EXECUTION: form is not signed" << std::endl;
 	try
 	{
-		std::cout << "Attempting to Create ShrubberyCreationForm: MyShrubForm, notSigned, gradeToSign(145), gradeToExecute(137)" << std::endl;
-		ShrubberyCreationForm	form("MyShrubForm");
+		std::cout << "Attempting to Create ShrubberyCreationForm: failedschool, notSigned, gradeToSign(145), gradeToExecute(137)" << std::endl;
+		ShrubberyCreationForm	form("failedschool");
 		Bureaucrat	bob("Bob", 137);
 
 		bob.executeForm(form);
@@ -92,89 +165,19 @@ int	main(void)
 		std::cout << e.what() << std::endl;
 	}
 	printDivider();
-//	std::cout << "TESTING FAILED CREATION OF FORM: GRADE OUT OF BOUNDS" << std::endl;
-//	try
-//	{
-//		std::cout << "Attempting to Create Form: MyForm, notSigned, gradeToSign(0), gradeToExecute(151)" << std::endl;
-//		Form	form("MyForm", 0, 151);
-//	}
-//	catch (std::exception & e)
-//	{
-//		std::cout << e.what() << std::endl;
-//	}
-//	printDivider();
-//
-//	std::cout << "TESTING FAILED CREATION OF FORM: GRADE OUT OF BOUNDS & trycatch demo" << std::endl;
-//	try
-//	{
-//		std::cout << "Attempting to Create Form: MyForm, notSigned, gradeToSign(20), gradeToExecute(151)" << std::endl;
-//		Form	form("MyForm", 20, 151);
-//		std::cout << "Attempting to Create Form: NOTCREATED, notSigned, gradeToSign(1), gradeToExecute(1)" << std::endl;
-//		Form	notcreated("NOTCREATED", 1, 1);
-//	}
-//	catch (std::exception & e)
-//	{
-//		std::cout << e.what() << std::endl;
-//	}
-//	
-//	printDivider();
-//
-//	std::cout << "TESTING SUCCESSFULLY SIGNED FORM" << std::endl;
-//	try
-//	{
-//		Bureaucrat alice("Alice", 19);
-//		std::cout << "Attempting to Create Form: MyForm, notSigned, gradeToSign(20), gradeToExecute(1)" << std::endl;
-//		Form	form("MyForm", 20, 1);
-//		std::cout << "Alice attempting to sign form" << std::endl;
-//		alice.signForm(form);
-//	}
-//	catch (std::exception & e)
-//	{
-//		std::cout << e.what() << std::endl;
-//	}
-//	printDivider();
-//
-//	{
-//		std::cout << "TESTING FAILED SIGNED FORM: GRADE TOO LOW" << std::endl;
-//		Bureaucrat alice("Alice", 25);
-//		Form	form("MyForm", 20, 1);
-//		std::cout << "Alice attempting to sign form" << std::endl;
-//		alice.signForm(form);
-//
-//	}
-//	printDivider();
-//	{
-//		std::cout << "TESTING FAILED SIGNED FORM: ALREADY SIGNED" << std::endl;
-//		Bureaucrat alice("Alice", 25);
-//		Bureaucrat bob("Bob", 1);
-//		Form	form("MyForm", 20, 1);
-//		bob.signForm(form);
-//		std::cout << "Alice attempting to sign form" << std::endl;
-//		alice.signForm(form);
-//	}
-//	printDivider();
-//	
-//	{
-//		std::cout << "TESTING FAILED SIGNED FORM THEN SUCCESSFUL" << std::endl;
-//		Bureaucrat alice("Alice", 2);
-//		Form	form("MyForm", 1, 1);
-//		std::cout << alice << "attemping to sign form but her grade is too low" << std::endl;
-//		alice.signForm(form);
-//		alice.incrementGrade();
-//		std::cout << alice << "attemping to resign form, will try both times as is not in a try catch statement" << std::endl;
-//		alice.signForm(form);
-//		std::cout << alice << "attemping to resign form, will try both times as is not in a try catch statement" << std::endl;
-//		alice.signForm(form);
-//	}
-//	printDivider();
-//
-//	{
-//		std::cout << "TESTING FORM OUTPUT OVERLOAD <<" << std::endl;
-//		Form	form("MyForm", 20, 1);
-//		std::cout << "std::cout << form << std::endl" << std::endl;
-//		std::cout << form << std::endl;
-//	}
-	
-	printDivider();
+
+	std::cout << "TESTING FAILED ROBOTOMY FORM EXECUTION: form is not signed" << std::endl;
+	try
+	{
+		std::cout << "Attempting to Create RobotomyRequestForm: casey, notSigned, gradeToSign(72), gradeToExecute(45)" << std::endl;
+		ShrubberyCreationForm	form("casey");
+		Bureaucrat	bob("Bob", 30);
+
+		bob.executeForm(form);
+	}
+	catch (std::exception & e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 	printFooter();
 }
