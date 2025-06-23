@@ -46,6 +46,8 @@ int	main(void)
 	{
 		std::cout << "Attempting to Create Bureaucrat: Alice, Grade: 1" << std::endl;
 		Bureaucrat alice("Alice", 1);
+		Bureaucrat aliceCopy(alice);
+		Bureaucrat aliceCopy2 = alice;
 		std::cout << "Success" << std::endl;
 	}
 	catch (std::exception & e)

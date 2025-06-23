@@ -30,7 +30,7 @@ Bureaucrat&	Bureaucrat::operator=(const Bureaucrat& other)
 
 Bureaucrat::~Bureaucrat(void)
 {
-	std::cout << "Bureaucrat " << this->getName() << " was destroyed" << std::endl;
+	std::cout << *this << "was destroyed" << std::endl;
 }
 
 std::ostream&	operator<<(std::ostream& os, const Bureaucrat& instance)
