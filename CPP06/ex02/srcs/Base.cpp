@@ -59,29 +59,23 @@ void	identify(Base& p)
 		A& a = dynamic_cast<A&>(p);
 		(void)a;
 		std::cout << "Ref: This is type 'A'." << std::endl;
+		return ;
 	}
-	catch (std::exception& e)
-	{
-		(void)e;
-	}
+	catch (std::exception& e){}
 	try
 	{
 		B& b = dynamic_cast<B&>(p);
 		(void)b;
 		std::cout << "Ref: This is type 'B'." << std::endl;
+		return ;
 	}
-	catch (std::exception& e)
-	{
-		(void)e;
-	}
+	catch (std::exception& e){}
 	try
 	{
 		C& c = dynamic_cast<C&>(p);
 		(void)c;
 		std::cout << "Ref: This is type 'C'." << std::endl;
+		return ;
 	}
-	catch (std::exception& e)
-	{
-		(void)e;
-	}
+	catch (std::exception& e){}
 }
