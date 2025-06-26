@@ -32,6 +32,7 @@ int	main(void)
 	std::cout << "---pointer after serialize + deserialize my_data---" << std::endl;
 	std::cout << *back << std::endl;
 
+	std::cout << "addr my_data: " << &my_data << " || value of ptr: " << back << std::endl;
 	std::cout << "---changing i to 20, s to 'hello world'---" << std::endl;
 	my_data.i = 20;
 	my_data.s = "hello world";
