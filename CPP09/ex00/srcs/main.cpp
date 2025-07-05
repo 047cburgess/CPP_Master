@@ -12,11 +12,13 @@ int	main(int ac, char **av)
 
 	try
 	{
-		BitcoinExchange myExchanger(av[1]);
+		BitcoinExchange myExchanger;
+		myExchanger.setUpDatabase();
+		myExchanger.launch(av[1]);
 	}
 	catch (const std::exception &e)
 	{
-		std::cerr << "FATAL: " << e.what() << std::endl;
+		std::cerr << RED << "FATAL: " << e.what() << RESET << std::endl;
 	}
 
 }

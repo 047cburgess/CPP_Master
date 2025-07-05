@@ -8,27 +8,31 @@
 #include <exception>
 #include <stdlib.h>
 
+#define RESET "\033[0m"
+#define RED "\033[31m"
+#define GREEN "\033[32m"
+
+
 class	BitcoinExchange
 {
 	private:
 		std::map<std::string, float> _database;
-		std::string _inputFile;
-		void	launch(void);
-		std::map<int, int> _monthDayMapping;
+		void	processLine(std::string& line);
+		float	getExchangeRate(const std::string& date);
+		float	convert(const std::string& value, const float& exchangeRate);
+		void	printDatabase() const;
+		static int	is_valid_date(std::string& date);
+		static int	is_valid_day(int year, int month, int day);
+		static int	is_leapyear(int year);
+		static int	is_valid_value(std::string& value);
+		BitcoinExchange(const BitcoinExchange& other);
+		BitcoinExchange& operator=(const BitcoinExchange& other);
 
 	public:
 		BitcoinExchange();
-		BitcoinExchange(const std::string& infileName);
-		//BitcoinExchange(const BitcoinExchange& other);
-		//BitcoinExchange& operator=(const BitcoinExchange& other);
 		~BitcoinExchange();
-		void	printDatabase() const;
-		void	setUpDatabase();
-		float	convert(std::string& date, std::string& value);
+		void	setUpDatabase(void);
+		void	launch(const std::string& filename);
 
 };
 
-int	is_valid_date(std::string& date);
-int	is_valid_day(int year, int month, int day);
-int	is_leapyear(int year);
-int	is_valid_value(std::string& value);

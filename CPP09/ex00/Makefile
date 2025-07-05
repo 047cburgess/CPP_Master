@@ -31,7 +31,7 @@ fclean:	clean
 re:	fclean all
 
 leaks:	all
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
+	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME) infile.txt
 run: all
 	./$(NAME) infile.txt
 
