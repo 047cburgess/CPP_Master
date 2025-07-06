@@ -1,4 +1,4 @@
-NAME = btc
+NAME = RPN
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -MMD -MP -std=c++98 -g
 
@@ -7,7 +7,9 @@ OBJS_DIR = objs
 INCS_DIR = incs
 
 SRCS = $(SRCS_DIR)/main.cpp \
-       $(SRCS_DIR)/BitcoinExchange.cpp \
+       $(SRCS_DIR)/RPN.cpp \
+       $(SRCS_DIR)/utils.cpp \
+       
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
 DEPS = $(OBJS:.o=.d)
@@ -30,14 +32,9 @@ fclean:	clean
 
 re:	fclean all
 
-leaks:	all
-	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME) infile.txt
-run: all
-	./$(NAME) infile.txt
-
 -include $(DEPS)
 
-.PHONY: all cleam fclean re leaks run
+.PHONY: all cleam fclean re
 
 
 

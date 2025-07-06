@@ -1,0 +1,11 @@
+VALID
+./RPN "8 9 * 9 - 9 - 9 - 4 - 1 +" -> 42
+./RPN "7 7 * 7 -" -> 42
+./RPN "1 2 * 2 / 2 * 2 4 - +" -> 0
+./RPN "1 1 1 + 1 1 + + +" -> 5
+
+INVALID
+./RPN "(1 + 1)" -> invalid characters
+./RPN "1 2" -> not 1 num left in stack
+./RPN "1 0 /" -> division by zero
+./RPN "1 1 1 1 +" -> not 1 num left in stack
