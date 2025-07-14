@@ -7,8 +7,10 @@
 #include <cstdlib>
 
 template <typename T>
-void	printNums(T& container)
+void	printNums(const std::string message, T& container)
 {
+	std::cout << message;
+
 	typename T::iterator it = container.begin();
 	while (it != container.end())
 	{
@@ -18,24 +20,6 @@ void	printNums(T& container)
 	std::cout << std::endl;
 };
 
-std::vector<int>	parseInput(char** nums)
-{
-	std::vector<int> result;
-	int i = 0;
-	while (nums[i])
-	{
-		char* endptr;
-		std::string numStr = nums[i];
-		long	value = std::strtol(nums[i], &endptr, 10);
-		if (*endptr != '\0' || (value < 0 || value > INT_MAX))
-			throw	std::invalid_argument("not positive integer: " + numStr);
-		if (find(result.begin(), result.end(), value) != result.end())
-			throw	std::invalid_argument("numbers cannot contain duplicates: " + numStr);
-		result.push_back(static_cast<int>(value));
-		i++;
-	}
-	return (result);
-}
 
 int	main(int ac, char **av)
 {
@@ -51,12 +35,21 @@ int	main(int ac, char **av)
 
 	try
 	{
-		std::vector<int> nums = parseInput(&av[1]);
-		printNums(nums);
+		// TIME STAMP
+		// START TIME = gettime
+		PmergeMe<std::vector<int>> vectorValues;
 
+		vectorValues.parse(&av[1]);
+		vectorValues.sort();
+		
+		// 
+		// PRINT
 
-		//PmergeMe vector;
-		//vector.sort();
+		PmergeMe<std::deque<int>> dequeValues;
+
+		dequeValues.parse(&av[1]);
+		dequeValues.sort();
+		
 
 
 	}
