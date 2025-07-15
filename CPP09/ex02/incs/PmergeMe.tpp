@@ -51,9 +51,9 @@ void	PmergeMe<Container>::parse(char** nums)
 }
 
 template <typename Container>
-Container PmergeMe<Container>::genJacobsthalSequence(int length)
+std::vector<int> PmergeMe<Container>::genJacobsthalSequence(int length)
 {
-	Container result;
+	std::vector<int> result;
 
 	result.push_back(0);
 	if (length == 0)
@@ -77,9 +77,9 @@ Container PmergeMe<Container>::genJacobsthalSequence(int length)
 }
 
 template <typename Container>
-Container PmergeMe<Container>::getOrderOfInsertion(const Container& jacobs, size_t size) const
+std::vector<int> PmergeMe<Container>::getOrderOfInsertion(const Container& jacobs, size_t size) const
 {
-	Container order;
+	std::vector<int> order;
 
 	for (size_t i = 0; i < jacobs.size(); ++i) {
         order.push_back(jacobs[i]);
@@ -98,18 +98,18 @@ Container PmergeMe<Container>::getOrderOfInsertion(const Container& jacobs, size
 }
 
 template <typename Container>
-void PmergeMe<Container>::sort()
+Container PmergeMe<Container>::mergeInsertionSort(Container container)
 {
-	size_t n = _values.size();
+	size_t n = container.size();
     
     // Base cases
-    if (n <= 1) return;
+    if (n <= 1) return (container);
     
     if (n == 2) {
-        if (_values[0] > _values[1]) {
-            std::swap(_values[0], _values[1]);
+        if (container[0] > container[1]) {
+            std::swap(container[0], container[1]);
         }
-        return;
+        return (container);
     }
     
     // Form pairs: larger - smaller
@@ -118,15 +118,15 @@ void PmergeMe<Container>::sort()
     int odd_element = 0;
     
     if (has_odd) {
-        odd_element = _values.back();
+        odd_element = container.back();
         --n;
     }
     
     for (size_t i = 0; i < n; i += 2) {
-        if (_values[i] > _values[i + 1]) {
-            pairs.push_back(std::make_pair(_values[i], _values[i + 1]));
+        if (container[i] > container[i + 1]) {
+            pairs.push_back(std::make_pair(container[i], container[i + 1]));
         } else {
-            pairs.push_back(std::make_pair(_values[i + 1], _values[i]));
+            pairs.push_back(std::make_pair(container[i + 1], container[i]));
         }
     }
     
@@ -137,7 +137,7 @@ void PmergeMe<Container>::sort()
     }
     
     if (main_chain.size() > 1) {
-        main_chain = mergeInsertionSort(main_chain);
+        main_chain = sort(main_chain);
     }
     
     // Create pendant chain of smaller elements
@@ -152,8 +152,8 @@ void PmergeMe<Container>::sort()
     
     // Insert pendant elements using Jacobsthal sequence
     if (pendant_chain.size() >= 1) {
-        Container jacobsthal_seq = genJacobsthalSequence(static_cast<int>(pendant_chain.size()));
-        Container insertion_order = getOrderOfInsertion(jacobsthal_seq, pendant_chain.size());
+        std::vector<int> jacobsthal_seq = genJacobsthalSequence(static_cast<int>(pendant_chain.size()));
+        std::vector<int> insertion_order = getOrderOfInsertion(jacobsthal_seq, pendant_chain.size());
         
         for (size_t i = 0; i < pendant_chain.size(); ++i) {
             int index = insertion_order[i];
@@ -168,5 +168,11 @@ void PmergeMe<Container>::sort()
         main_chain.insert(pos, odd_element);
     }
     
-    _values = main_chain;
+    return (container);
+}
+
+template <typename Container>
+void PmergeMe<Container>::sort()
+{
+	_values = mergeInsertionSort(_values);
 }

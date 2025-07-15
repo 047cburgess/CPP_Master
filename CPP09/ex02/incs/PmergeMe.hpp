@@ -12,10 +12,13 @@ class	PmergeMe
 	private:
 		Container _original;
 		Container _values;
-		Container genJacobsthalSequence(int length);
-		Container getOrderOfInsertion(const Container& jacobs, size_t size) const;
+		std::vector<int> genJacobsthalSequence(int length);
+		std::vector<int> getOrderOfInsertion(const Container& jacobs, size_t size) const;
+		Container mergeInsertionSort(Container container);
 
 	public:
+		typedef std::pair<int, int> pair_type;
+		typedef std::vector<pair_type> PairContainer;
 		PmergeMe();
 		PmergeMe(const PmergeMe& other);
 		PmergeMe& operator=(const PmergeMe& other);
@@ -23,8 +26,6 @@ class	PmergeMe
 
 		void	parse(char **nums); // DONE
 		void	sort(void);
-		typedef typename Container::allocator_type allocator_type;
-		typedef std::pair<int, int> pair_type;
 
 };
 
