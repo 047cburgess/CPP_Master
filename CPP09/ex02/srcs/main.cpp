@@ -37,7 +37,7 @@ int	main(int ac, char **av)
 	{
 		// TIME STAMP
 		// START TIME = gettime
-		PmergeMe<std::vector<int>> vectorValues;
+		PmergeMe<std::vector<int> > vectorValues;
 
 		vectorValues.parse(&av[1]);
 		vectorValues.sort();
@@ -45,7 +45,7 @@ int	main(int ac, char **av)
 		// 
 		// PRINT
 
-		PmergeMe<std::deque<int>> dequeValues;
+		PmergeMe<std::deque<int> > dequeValues;
 
 		dequeValues.parse(&av[1]);
 		dequeValues.sort();
