@@ -1,9 +1,7 @@
 #include "RPN.hpp"
 
-RPN::RPN()
-{
-
-}
+RPN::RPN(){}
+RPN::~RPN(){}
 
 RPN::RPN(const RPN& other)
 {
@@ -17,11 +15,6 @@ RPN&	RPN::operator=(const RPN& other)
 		stack = other.stack;
 	}
 	return (*this);
-}
-
-RPN::~RPN()
-{
-
 }
 
 void	RPN::calculate(std::string& input)
@@ -42,23 +35,23 @@ void	RPN::calculate(std::string& input)
 					throw std::invalid_argument("operator not recognised: " + buff);
 			if (stack.size() < 2)
 				throw std::logic_error("cannot complete calculation, < 2 nums in stack");
-			int a = this->pop();
 			int b = this->pop();
+			int a = this->pop();
 			switch (buff[0])
 			{
 				case '+':
-					stack.push(b + a);
+					stack.push(a + b);
 					continue;
 				case '-':
-					stack.push(b - a);
+					stack.push(a - b);
 					continue;
 				case '*':
 					stack.push(a * b);
 					continue;
 				case '/':
-					if (a == 0)
+					if (b == 0)
 						throw std::logic_error("division by zero");
-					stack.push(b / a);
+					stack.push(a / b);
 					continue;
 				default:
 					throw std::invalid_argument("input not recognised" + buff);
@@ -87,6 +80,5 @@ void	RPN::print_stack(void) const
 	{
 		std::cout << *it << std::endl;
 		it++;
-
 	}
 }
