@@ -7,6 +7,7 @@
 #include <sstream>
 #include <exception>
 #include <stdlib.h>
+#include <climits>
 
 #define RESET "\033[0m"
 #define RED "\033[31m"

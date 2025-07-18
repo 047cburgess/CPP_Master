@@ -1,9 +1,7 @@
 #include "BitcoinExchange.hpp"
 
-BitcoinExchange::BitcoinExchange(void)
-{
-
-}
+BitcoinExchange::BitcoinExchange(void){}
+BitcoinExchange::~BitcoinExchange(void){}
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
 {
@@ -19,15 +17,7 @@ BitcoinExchange& BitcoinExchange::operator=(const BitcoinExchange& other)
 	return (*this);
 }
 
-BitcoinExchange::~BitcoinExchange(void)
-{
-
-
-}
-
-
 // Parses the bitcoin database into a map.
-// Check for additional parsing/errors etc
 void	BitcoinExchange::setUpDatabase(void)
 {
 	std::ifstream database("data.csv");
@@ -42,11 +32,20 @@ void	BitcoinExchange::setUpDatabase(void)
 		throw std::invalid_argument("Database missing valid header");
 	while (std::getline(database, line))
 	{
-		std::istringstream iss(line);
-		std::pair<std::string, float> entry;
-		if (!std::getline(iss, entry.first, ',') || !(iss >> entry.second))
+		if (line.length() < 12 || line[10] != ',')
 			throw std::invalid_argument("Database is formatted incorrectly: " + line);
-		_database.insert(entry);
+		std::istringstream iss(line);
+		std::string date;
+		std::string value;
+		if (!std::getline(iss, date, ',') || !(is_valid_date(date)) || !(iss >> value))
+			throw std::invalid_argument("Database is formatted incorrectly: " + line);
+		char* endptr;
+		float f = std::strtof(value.c_str(), &endptr);
+		if (*endptr != '\0' || (f < 0 || f > static_cast<float>(INT_MAX)))
+			throw std::invalid_argument("Database is formatted incorrectly: " + line);
+		if (_database.count(date) > 0)
+    			throw std::invalid_argument("Duplicate date in database: " + date);
+		_database[date] = f;
 	}
 }
 
