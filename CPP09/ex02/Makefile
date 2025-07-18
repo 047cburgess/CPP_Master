@@ -30,9 +30,23 @@ fclean:	clean
 
 re:	fclean all
 
+run:	all
+	./PmergeMe $$(shuf -i 1-1000000 -n 21 | tr "\n" " ")
+
+runbig:	all
+	./PmergeMe $$(shuf -i 1-1000000 -n 3000 | tr "\n" " ") | grep -e "SORTED" -e "Time"
+
+leaks:	all
+	@bash -c 'valgrind --leak-check=full ./PmergeMe $$(shuf -i 1-1000000 -n 21 | tr "\n" " ")'
+
+bigleaks:	all
+	@bash -c 'valgrind --leak-check=full ./PmergeMe $$(shuf -i 1-1000000 -n 3000 | tr "\n" " ") | grep -e "SORTED" -e "Time"'
+
+	
+
 -include $(DEPS)
 
-.PHONY: all cleam fclean re
+.PHONY: all cleam fclean re big run
 
 
 

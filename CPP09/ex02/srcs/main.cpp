@@ -1,25 +1,4 @@
-// PSEUDO CODE //
-
-// 1: Divide the elements into pairs
-// 2: Sort the pairs (based on last num in the pair)
 #include "PmergeMe.hpp"
-#include <climits>
-#include <cstdlib>
-
-template <typename T>
-void	printNums(const std::string message, T& container)
-{
-	std::cout << message;
-
-	typename T::iterator it = container.begin();
-	while (it != container.end())
-	{
-		std::cout << *it << " ";
-		it++;
-	}
-	std::cout << std::endl;
-};
-
 
 int	main(int ac, char **av)
 {
@@ -29,33 +8,34 @@ int	main(int ac, char **av)
 		return (1);
 	}
 
-
-
-
-
 	try
 	{
-		// TIME STAMP
-		// START TIME = gettime
+		struct timeval start, end;
+
+		// VECTOR
+		gettimeofday(&start, NULL);
+
 		PmergeMe<std::vector<int> > vectorValues;
 
 		vectorValues.parse(&av[1]);
-		vectorValues.sort();
-		
-		// 
-		// PRINT
+		vectorValues.sort("vector");
 
+		gettimeofday(&end, NULL);
+		vectorValues.printResult(start, end);
+		
+		// DEQUE
+		gettimeofday(&start, NULL);
 		PmergeMe<std::deque<int> > dequeValues;
 
 		dequeValues.parse(&av[1]);
-		dequeValues.sort();
-		
+		dequeValues.sort("deque");
 
-
+		gettimeofday(&end, NULL);
+		dequeValues.printResult(start, end);
 	}
 	catch (std::exception &e)
 	{
-		std::cout << "ERROR: " << e.what() << std::endl;
+		std::cerr << "ERROR: " << e.what() << std::endl;
 	}
 
 }
