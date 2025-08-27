@@ -17,21 +17,21 @@ void	increment(T& i)
 int	main(void)
 {
 	int intArray[5] = {1, 2, 3, 4, 5};
-	::iter(intArray, 5, print<const int>);
+	::iter(intArray, 5, print);
 	std::cout << std::endl;
 
 	const int intArrayConst[5] = {1, 2, 3, 4, 5};
-	::iter(intArrayConst, 5, print<const int>);
+	::iter(intArrayConst, 5, print);
 	std::cout << std::endl;
 
-	::iter(intArray, 5, increment<int>);
-	::iter(intArray, 5, print<int>);
+	::iter(intArray, 5, increment);
+	::iter(intArray, 5, print);
 	std::cout << std::endl;
 
 	char charArray[5] = {'a', 'b', 'c', 'd', 'e'};
-	::iter(charArray, 5, print<char>);
+	::iter(charArray, 5, print);
 	std::cout << std::endl;
-	::iter(charArray, 5, increment<char>);
-	::iter(charArray, 5, print<char>);
+	::iter(charArray, 5, increment);
+	::iter(charArray, 5, print);
 	std::cout << std::endl;
 }

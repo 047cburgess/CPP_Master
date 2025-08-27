@@ -23,7 +23,7 @@ fclean:	clean
 
 re:	fclean all
 
-run:	all
+run:	$(NAME)
 	./$(NAME)
 
 leaks:	all

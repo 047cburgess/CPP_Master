@@ -72,19 +72,50 @@ int main(void)
 		myPets[i] = new Cat();
 	}
 
-
-	// TESTING DEEEP VS SHALLOW COPY
-	std::cout << "---TESTING DEEP VS SHALLOW COPY---" << std::endl;
-	Animal* puppy = myPets[0];
-	std::cout << "puppy type: " << puppy->getType() << std::endl;
-	std::cout << "mypets[0] type: " << myPets[0]->getType() << std::endl;
-
-	
-
-
-
-
 	std::cout << "---DELETING MYPETS---" << std::endl;
 	for (int i = 0; i < 10; i++)
 		delete myPets[i];
+
+
+	// TESTING DEEEP VS SHALLOW COPY
+	std::cout << "---TESTING DEEP VS SHALLOW COPY---" << std::endl;
+	std::cout << "Creating Dog labrador" << std::endl;
+	Dog labrador;
+	labrador.getBrain()->setIdea(0, "labrador idea 0");
+
+	std::cout << "Dog frenchie = labrador (copy assignment)" << std::endl;
+	Dog frenchie = labrador;
+
+	std::cout << "labrador type: " << labrador.getType() << std::endl;
+	std::cout << "frenchie type: " << frenchie.getType() << std::endl;
+	std::cout << "labrador ideas[0]: " << labrador.getBrain()->getIdea(0) << std::endl;
+	std::cout << "frenchie ideas[0]: " << frenchie.getBrain()->getIdea(0) << std::endl;
+
+
+	std::cout << "setting labrador ideas[0] to 'new lab idea 0'" << std::endl;
+	labrador.getBrain()->setIdea(0, "new lab idea 0");
+	std::cout << "labrador ideas[0]: " << labrador.getBrain()->getIdea(0) << std::endl;
+	std::cout << "frenchie ideas[0]: " << frenchie.getBrain()->getIdea(0) << std::endl;
+	
+	std::cout << "Testing leaks for copy reassignment. frenchie = newDog" << std::endl;
+	Dog newDog;
+	frenchie = newDog;
+
+	std::cout << "Testing Copy Constructor. copyLabrador(labrador)" << std::endl;
+	Dog copyLabrador(labrador);
+	std::cout << "labrador ideas[0]: " << labrador.getBrain()->getIdea(0) << std::endl;
+	std::cout << "copyLabrador ideas[0]: " << copyLabrador.getBrain()->getIdea(0) << std::endl;
+
+	std::cout << "setting labrador ideas[0] to 'another lab idea 0'" << std::endl;
+	labrador.getBrain()->setIdea(0, "another lab idea 0");
+	std::cout << "labrador ideas[0]: " << labrador.getBrain()->getIdea(0) << std::endl;
+	std::cout << "copylabrador ideas[0]: " << copyLabrador.getBrain()->getIdea(0) << std::endl;
+
+	std::cout << "setting copyLabrador ideas[0] to 'here's my copy lab idea 0'" << std::endl;
+	copyLabrador.getBrain()->setIdea(0, "here's my copy lab idea 0");
+	std::cout << "labrador ideas[0]: " << labrador.getBrain()->getIdea(0) << std::endl;
+	std::cout << "copylabrador ideas[0]: " << copyLabrador.getBrain()->getIdea(0) << std::endl;
+
+	std::cout << std::endl << "END OF MAIN" << std::endl;
+
 }

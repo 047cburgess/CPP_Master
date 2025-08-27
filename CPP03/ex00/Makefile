@@ -5,7 +5,7 @@ SRCS = main.cpp \
 OBJS = $(SRCS:.cpp=.o)
 
 CC = c++
-CFLAGS = -Wall -Werror -Wextra -std=c++98 -g -Wshadow -Wno-shadow
+CFLAGS = -Wall -Werror -Wextra -std=c++98 -g
 
 all: $(NAME)
 

@@ -7,6 +7,7 @@ OBJS_DIR = objs
 INCS_DIR = incs
 
 SRCS = $(SRCS_DIR)/main.cpp \
+       $(SRCS_DIR)/Span.cpp \
 
 OBJS = $(addprefix $(OBJS_DIR)/, $(SRCS:.cpp=.o))
 DEPS = $(OBJS:.o=.d)
@@ -31,10 +32,12 @@ re:	fclean all
 
 leaks:	all
 	valgrind --leak-check=full --show-leak-kinds=all --track-fds=yes ./$(NAME)
+run: all
+	./$(NAME)
 
 -include $(DEPS)
 
-.PHONY: all cleam fclean re leaks
+.PHONY: all cleam fclean re leaks run
 
 
 

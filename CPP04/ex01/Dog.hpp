@@ -20,6 +20,7 @@ class	Dog: public Animal
 
 		// Public Member Functions
 		void	makeSound(void) const;
+		Brain*	getBrain(void) const;
 };
 
 # endif

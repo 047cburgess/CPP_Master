@@ -31,3 +31,8 @@ WrongCat::WrongCat(const WrongCat& other) : WrongAnimal(other)
 	*this = other;
 }
 
+void	WrongCat::makeSound(void) const
+{
+	std::cout << "Meow!" << std::endl;
+}
+

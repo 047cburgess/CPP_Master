@@ -14,6 +14,7 @@ class	WrongCat: public WrongAnimal
 		~WrongCat(); //destructor
 		
 		WrongCat&	operator=(const WrongCat& other); // copy assignment
+		void	makeSound() const;
 
 };
 

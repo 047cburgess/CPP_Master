@@ -1,7 +1,7 @@
 #include "Animal.hpp"
 
 // Default constructor
-Animal::Animal()
+Animal::Animal(): type("default")
 {
 	std::cout << "Animal default constructor called." << std::endl; 
 }

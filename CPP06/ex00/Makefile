@@ -1,4 +1,4 @@
-NAME = prog
+NAME = convert
 CC = c++
 CFLAGS = -Wall -Werror -Wextra -MMD -MP -std=c++98 -g
 
